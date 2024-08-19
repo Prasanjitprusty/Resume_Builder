@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
+import PersonalInformation from './features/PersonalInformation';
+import KeySkills from './features/KeySkills';
+import Preview from './features/preview';
+import Template from './features/Template/Template';
+import WorkExprience from './features/workExprience/workExprience';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Template/>} />
+        <Route path='/personalInformation' element={<PersonalInformation />} />
+        <Route path='/keySkills' element={<KeySkills />} />
+        <Route path='/preview' element={<Preview />} />
+        <Route path='/workExprience' element={<WorkExprience />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
