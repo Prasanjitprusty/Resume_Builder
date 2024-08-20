@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faScrewdriverWrench, faTrash, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setPersonalInformation } from '../features/userDetails/userDetailsSlice';
+import { setSkillsInformation } from '../features/userDetails/userDetailsSlice';
 
 export default function KeySkills() {
   const [skills, setSkills] = useState([{ id: Date.now(), skill: "" }]);
@@ -27,7 +27,7 @@ export default function KeySkills() {
   const getFormData = (e) => {
     e.preventDefault();
     console.log('skills:', skills);
-    dispatch(setPersonalInformation(skills));
+    dispatch(setSkillsInformation(skills));
     navigate('/preview');
   };
 
