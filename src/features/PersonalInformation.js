@@ -15,6 +15,7 @@ export default function PersonalInformation() {
     mobile: "",
     address: "",
     pincode: "",
+    position: "",
     objective: "",
   });
 
@@ -29,7 +30,10 @@ export default function PersonalInformation() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setFormData((prevState) => ({ ...prevState, profilePhoto: reader.result }));
+        setFormData((prevState) => ({
+          ...prevState,
+          profilePhoto: reader.result,
+        }));
       };
       reader.readAsDataURL(file);
     }
@@ -54,13 +58,15 @@ export default function PersonalInformation() {
     navigate(-1);
   };
 
+  
+
   return (
     <div className="bg-slate-500 rounded-sm m-24 p-8">
       <form onSubmit={getFormData}>
         <div className="text-center scale-125 mt-4 text-fuchsia-900">
-          <FontAwesomeIcon icon={faAddressCard} className="mr-2" /> Personal Information
+          <FontAwesomeIcon icon={faAddressCard} className="mr-2" /> Personal
+          Information
         </div>
-
         {/* Profile Photo */}
         <div className="flex flex-col items-center mt-4">
           <Avatar
@@ -84,7 +90,6 @@ export default function PersonalInformation() {
             className="hidden"
           />
         </div>
-
         <div className="flex gap-4 mt-4 flex-row">
           {/* First Name */}
           <div className="flex-1">
@@ -118,7 +123,6 @@ export default function PersonalInformation() {
             />
           </div>
         </div>
-
         <div className="flex gap-4 mt-4 flex-row">
           {/* Email */}
           <div className="flex-1">
@@ -138,7 +142,10 @@ export default function PersonalInformation() {
 
           {/* Mobile */}
           <div className="flex-1">
-            <label htmlFor="mnumber" className="text-lg block mb-2 text-blue-300">
+            <label
+              htmlFor="mnumber"
+              className="text-lg block mb-2 text-blue-300"
+            >
               Mobile
             </label>
             <input
@@ -152,11 +159,13 @@ export default function PersonalInformation() {
             />
           </div>
         </div>
-
         <div className="flex gap-4 mt-4 flex-row">
           {/* Address */}
           <div className="flex-1">
-            <label htmlFor="address" className="text-lg block mb-2 text-blue-300">
+            <label
+              htmlFor="address"
+              className="text-lg block mb-2 text-blue-300"
+            >
               Address
             </label>
             <input
@@ -172,7 +181,10 @@ export default function PersonalInformation() {
 
           {/* Pincode */}
           <div className="flex-1">
-            <label htmlFor="pin-number" className="text-lg block mb-2 text-blue-300">
+            <label
+              htmlFor="pin-number"
+              className="text-lg block mb-2 text-blue-300"
+            >
               Pincode
             </label>
             <input
@@ -187,18 +199,40 @@ export default function PersonalInformation() {
           </div>
         </div>
 
-          <label htmlFor="objective" className="block mt-4 text-lg text-blue-300">Objective</label> <br />
-          <textarea
-            className="border rounded px-4 py-4 w-full"
-            id="objective"
-            name="objective"
-            rows="4"
-            placeholder="Write Here..."
-            value={formData.objective}
-            onChange={handleInputChange}
-          />
-       
+        <div className="flex gap-4 mt-4 flex-row">
+          {/*Appling Position For */}
+          <div className="flex-1">
+            <label
+              htmlFor="position"
+              className="text-lg block mb-2 text-blue-300"
+            >
+              Position Appling For
+            </label>
+            <input
+              id="position"
+              name="position"
+              type="text"
+              placeholder="Type the Position Applying For ......"
+              value={formData.position}
+              onChange={handleInputChange}
+              className="block w-full p-2 border rounded-md"
+            />
+          </div>
 
+        </div>
+        <label htmlFor="objective" className="block mt-4 text-lg text-blue-300">
+          Objective
+        </label>{" "}
+        <br />
+        <textarea
+          className="border rounded px-4 py-4 w-full"
+          id="objective"
+          name="objective"
+          rows="4"
+          placeholder="Write Here..."
+          value={formData.objective}
+          onChange={handleInputChange}
+        />
         <div className="flex justify-end gap-3 mt-10">
           <button
             type="button"
@@ -207,7 +241,7 @@ export default function PersonalInformation() {
           >
             Back
           </button>
-          
+
           <button
             type="submit"
             className="bg-yellow-400 px-8 py-3 rounded-lg leading-tight tracking-widest"

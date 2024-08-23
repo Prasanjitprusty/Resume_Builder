@@ -5,6 +5,7 @@ import KeySkills from './features/KeySkills';
 import Preview from './features/preview';
 import Template from './features/Template/Template';
 import WorkExprience from './features/workExprience/workExprience';
+import EducationDetails from './features/Education/education';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path='/keySkills' element={<KeySkills />} />
         <Route path='/preview' element={<Preview />} />
         <Route path='/workExprience' element={<WorkExprience />} />
+        <Route path='/education' element={<EducationDetails />} />
       </Routes>
     </Router>
   );

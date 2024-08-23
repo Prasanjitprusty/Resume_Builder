@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenRuler, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setWorkExperienceInformation } from "../userDetails/userDetailsSlice";
+import { setEducationInformation } from "../userDetails/userDetailsSlice";
 
-export default function WorkExperience() {
+export default function EducationDetails() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [formData, setFormData] = useState([
     {
-      jobTitle: "",
-      organizationName: "",
+      type: "",
+      university: "",
+      degree: "",
       startYear: "",
       endYear: "",
     },
@@ -32,14 +32,15 @@ export default function WorkExperience() {
     setFormData([
       ...formData,
       {
-        jobTitle: "",
-        organizationName: "",
+        type: "",
+        university: "",
+        degree: "",
         startYear: "",
         endYear: "",
       },
     ]);
 
-    const newParam = `Company${formData.length + 1}`;
+    const newParam = `Type${formData.length + 1}`;
     searchParams.set(newParam, newParam);
     setSearchParams(searchParams);
   };
@@ -49,10 +50,10 @@ export default function WorkExperience() {
     setFormData(updatedFormData);
 
     // Update search parameters
-    searchParams.delete(`Company${index + 1}`);
+    searchParams.delete(`Type${index + 1}`);
     // Re-index remaining search parameters
     updatedFormData.forEach((_, i) => {
-      searchParams.set(`Company${i + 1}`, `Company${i + 1}`);
+      searchParams.set(`Type${i + 1}`, `Type${i + 1}`);
     });
     setSearchParams(searchParams);
   };
@@ -60,8 +61,8 @@ export default function WorkExperience() {
   const getFormData = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-    dispatch(setWorkExperienceInformation(formData));
-    navigate("/education");
+    dispatch(setEducationInformation(formData));
+    navigate("/keySkills");
   };
 
   const handleBack = () => {
@@ -72,49 +73,67 @@ export default function WorkExperience() {
     <div className="bg-slate-500 rounded-sm m-24 p-8">
       <form onSubmit={getFormData}>
         <div className="text-center scale-125 mt-4 text-fuchsia-900">
-          <FontAwesomeIcon icon={faBriefcase} className="mr-2" /> Work
-          Experience
+          <FontAwesomeIcon icon={faPenRuler} className="mr-2" /> Education
+          Details
         </div>
 
         {formData.map((form, index) => (
           <div key={index} className="mt-8">
-            <label className="text-2xl font-sans underline text-orange-500">{`Company -${
-              index + 1
-            }`}</label>
             <div className="flex gap-4 mt-4 flex-row">
-              {/* Job Title */}
-              <div className="flex-1">
+              {/* Type */}
+              <div className="w-1/2">
                 <label
-                  htmlFor={`jobTitle-${index}`}
+                  htmlFor={`type-${index}`}
                   className="text-lg block mb-2 text-blue-300"
                 >
-                  Job Title
+                  {`Type-${index + 1}`}
                 </label>
                 <input
-                  id={`jobTitle-${index}`}
-                  name="jobTitle"
+                  id={`type-${index}`}
+                  name="type"
                   type="text"
-                  placeholder="Enter Job Title"
-                  value={form.jobTitle}
+                  placeholder="Enter Educational Type"
+                  value={form.type}
+                  onChange={(e) => handleInputChange(index, e)}
+                  className="block w-full p-2 border rounded-md"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-4 mt-4 flex-row">
+              {/* University */}
+              <div className="flex-1">
+                <label
+                  htmlFor={`university-${index}`}
+                  className="text-lg block mb-2 text-blue-300"
+                >
+                  {`University-${index + 1}`}
+                </label>
+                <input
+                  id={`university-${index}`}
+                  name="university"
+                  type="text"
+                  placeholder="Select University"
+                  value={form.university}
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
               </div>
 
-              {/* Organization Name */}
+              {/* Degree Name */}
               <div className="flex-1">
                 <label
-                  htmlFor={`organizationName-${index}`}
+                  htmlFor={`degree-${index}`}
                   className="text-lg block mb-2 text-blue-300"
                 >
-                  Organization Name
+                  Degree
                 </label>
                 <input
-                  id={`organizationName-${index}`}
-                  name="organizationName"
+                  id={`degree-${index}`}
+                  name="degree"
                   type="text"
-                  placeholder="Enter Organization Name"
-                  value={form.organizationName}
+                  placeholder="Select Course"
+                  value={form.degree}
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
@@ -179,7 +198,7 @@ export default function WorkExperience() {
           >
             Add New
             <FontAwesomeIcon
-              aria-label="Add Skill"
+              aria-label="Add Education"
               className="ml-2 cursor-pointer"
               icon={faCirclePlus}
             />

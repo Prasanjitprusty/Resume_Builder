@@ -1,19 +1,23 @@
 import React from "react";
 import TemplateCard from "./TemplateCard";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selectTemplate } from '../userDetails/userDetailsSlice';
 
 export default function Template() {
   const templateArray = [
-    'images/Templete1.png',
-    'images/Templete2.jpg',
-    'images/Templete3.jpg',
-    'images/Templete4.jpg',
+    { image: 'images/Templete1.png', resume: 'resume1' },
+    { image: 'images/Templete2.jpg', resume: 'resume2' },
+    { image: 'images/Templete3.jpg', resume: 'resume3' },
+    { image: 'images/Templete4.jpg', resume: 'resume4' }
   ];
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const useTemplate = () => {
-    console.log('Template selected');
+  // Rename the function to avoid React hook naming confusion
+  const handleTemplateSelection = (image, resume) => {
+    dispatch(selectTemplate({ template: image, resume }));
     navigate('/personalInformation');
   };
 
@@ -22,7 +26,11 @@ export default function Template() {
       <h1 className="text-4xl font-bold mb-4">Template</h1>
       <div className="flex gap-8">
         {templateArray.map((item, idx) => (
-          <TemplateCard key={idx} data={item} onClick={useTemplate} />
+          <TemplateCard 
+            key={idx} 
+            data={item.image} 
+            onClick={() => handleTemplateSelection(item.image, item.resume)} 
+          />
         ))}
       </div>
     </div>

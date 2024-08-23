@@ -1,41 +1,44 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    personalInformation: {
-        profilePhoto: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobile: "",
-        address: "",
-        pincode: "",
-        objective: "",
-    },
-    skills: [],
-
-    workExperience: {  // Changed the key to workExperience
-        jobTitle: "",
-        organizationName: "",
-        startYear: "",
-        endYear: ""
-    }
+  selectedTemplate: null, // Stores the selected template image path
+  selectedResume: null,
+  personalInformation: {},
+  workExperience: {},
+  education: {},
+  skills: {},
 };
 
 const userDetailsSlice = createSlice({
-    name: 'userDetails',
-    initialState,
-    reducers: {
-        setPersonalInformation: (state, action) => {
-            state.personalInformation = action.payload;
-        },
-        setSkillsInformation: (state, action) => {
-            state.skills = action.payload;
-        },
-        setWorkExperienceInformation: (state, action) => {  // Corrected the reducer
-            state.workExperience = action.payload;
-        },
-    }
+  name: "userDetails",
+  initialState,
+  reducers: {
+    selectTemplate(state, action) {
+      state.selectedTemplate = action.payload.template;
+      state.selectedResume = action.payload.resume;
+    },
+    setPersonalInformation: (state, action) => {
+      state.personalInformation = action.payload;
+    },
+    setWorkExperienceInformation: (state, action) => {
+      // Corrected the reducer
+      state.workExperience = action.payload;
+    },
+    setEducationInformation: (state, action) => {
+      // Corrected the reducer
+      state.education = action.payload;
+    },
+    setSkillsInformation: (state, action) => {
+      state.skills = action.payload;
+    },
+  },
 });
 
-export const { setPersonalInformation, setSkillsInformation, setWorkExperienceInformation } = userDetailsSlice.actions;  // Updated export
+export const {
+  selectTemplate,
+  setPersonalInformation,
+  setWorkExperienceInformation,
+  setEducationInformation,
+  setSkillsInformation,
+} = userDetailsSlice.actions; // Updated export
 export default userDetailsSlice.reducer;
