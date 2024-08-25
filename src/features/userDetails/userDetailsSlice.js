@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedTemplate: null, // Stores the selected template image path
   selectedResume: null,
   personalInformation: {},
   workExperience: {},

@@ -23,7 +23,7 @@ export default function Template() {
 
   return (
     <div className="mx-2 my-6">
-      <h1 className="text-4xl font-bold mb-4">Template</h1>
+      <h1 className="flex justify-center text-4xl font-bold mb-4 ">Template</h1>
       <div className="flex gap-8">
         {templateArray.map((item, idx) => (
           <TemplateCard 

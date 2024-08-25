@@ -1,9 +1,20 @@
 app
   -->store.js
+
 features
- -->KeySkills.js
- -->PersonalInformation.js
- -->Template.js
- -->TemplateCard.js
+     -->KeySkills.js
+     -->PersonalInformation.js
+     -->preview.js
+ ->Education
+     -->education.js
+ ->Resumes
+     -->resume1.js
+     -->resume2.js
+  ->Template
+     -->Template.js
+     -->TemplateCard.js    
   ->userDetails
      -->userDetailsSlice.js
+  ->workExprience
+     -->workExprience.js
+     -->workExprienceDetails.js     
