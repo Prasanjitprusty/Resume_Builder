@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedResume: null,
+  selectedResume: null, // Updated from selectedTemplate
   personalInformation: {},
   workExperience: {},
   education: {},
@@ -13,18 +13,16 @@ const userDetailsSlice = createSlice({
   initialState,
   reducers: {
     selectTemplate(state, action) {
-      state.selectedTemplate = action.payload.template;
+      state.selectedResume = action.payload.resume; // Updated from selectedTemplate
       state.selectedResume = action.payload.resume;
     },
     setPersonalInformation: (state, action) => {
       state.personalInformation = action.payload;
     },
     setWorkExperienceInformation: (state, action) => {
-      // Corrected the reducer
       state.workExperience = action.payload;
     },
     setEducationInformation: (state, action) => {
-      // Corrected the reducer
       state.education = action.payload;
     },
     setSkillsInformation: (state, action) => {
@@ -34,10 +32,10 @@ const userDetailsSlice = createSlice({
 });
 
 export const {
-  selectTemplate,
+  selectTemplate, // Updated from selectTemplate
   setPersonalInformation,
   setWorkExperienceInformation,
   setEducationInformation,
   setSkillsInformation,
-} = userDetailsSlice.actions; // Updated export
+} = userDetailsSlice.actions;
 export default userDetailsSlice.reducer;

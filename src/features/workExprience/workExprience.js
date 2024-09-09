@@ -17,6 +17,7 @@ export default function WorkExperience() {
     },
   ]);
 
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,10 +26,32 @@ export default function WorkExperience() {
     const updatedFormData = [...formData];
     updatedFormData[index][name] = value;
     setFormData(updatedFormData);
+
+    // Clear error on input change
+    const updatedErrors = [...errors];
+    updatedErrors[index] = { ...updatedErrors[index], [name]: "" };
+    setErrors(updatedErrors);
+  };
+
+  const validateForm = () => {
+    const validationErrors = formData.map((form) => {
+      const formErrors = {};
+      if (!form.jobTitle) formErrors.jobTitle = "Job Title is required";
+      if (!form.organizationName)
+        formErrors.organizationName = "Organization Name is required";
+      if (!form.startYear) formErrors.startYear = "Start Year is required";
+      if (!form.endYear) formErrors.endYear = "End Year is required";
+      return formErrors;
+    });
+
+    setErrors(validationErrors);
+    return validationErrors.every(
+      (formErrors) => Object.keys(formErrors).length === 0
+    );
   };
 
   const addNewForm = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     setFormData([
       ...formData,
       {
@@ -42,26 +65,33 @@ export default function WorkExperience() {
     const newParam = `Company${formData.length + 1}`;
     searchParams.set(newParam, newParam);
     setSearchParams(searchParams);
+
+    // Add an empty error object for the new form
+    setErrors([...errors, {}]);
   };
 
   const deleteForm = (index) => {
     const updatedFormData = formData.filter((_, i) => i !== index);
     setFormData(updatedFormData);
 
-    // Update search parameters
     searchParams.delete(`Company${index + 1}`);
-    // Re-index remaining search parameters
     updatedFormData.forEach((_, i) => {
       searchParams.set(`Company${i + 1}`, `Company${i + 1}`);
     });
     setSearchParams(searchParams);
+
+    // Remove corresponding error entry
+    const updatedErrors = errors.filter((_, i) => i !== index);
+    setErrors(updatedErrors);
   };
 
   const getFormData = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    dispatch(setWorkExperienceInformation(formData));
-    navigate("/education");
+    if (validateForm()) {
+      console.log("Form Data:", formData);
+      dispatch(setWorkExperienceInformation(formData));
+      navigate("/education");
+    }
   };
 
   const handleBack = () => {
@@ -78,9 +108,9 @@ export default function WorkExperience() {
 
         {formData.map((form, index) => (
           <div key={index} className="mt-8">
-            <label className="text-2xl font-sans underline text-orange-500">{`Company -${
-              index + 1
-            }`}</label>
+            <label className="text-2xl font-sans underline text-orange-500">
+              {`Company -${index + 1}`}
+            </label>
             <div className="flex gap-4 mt-4 flex-row">
               {/* Job Title */}
               <div className="flex-1">
@@ -99,6 +129,11 @@ export default function WorkExperience() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.jobTitle && (
+                  <p className="text-red-500 text-sm">
+                    {errors[index].jobTitle}
+                  </p>
+                )}
               </div>
 
               {/* Organization Name */}
@@ -118,6 +153,11 @@ export default function WorkExperience() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.organizationName && (
+                  <p className="text-red-500 text-sm">
+                    {errors[index].organizationName}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -138,6 +178,11 @@ export default function WorkExperience() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.startYear && (
+                  <p className="text-red-500 text-sm">
+                    {errors[index].startYear}
+                  </p>
+                )}
               </div>
 
               {/* End Year */}
@@ -156,6 +201,9 @@ export default function WorkExperience() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.endYear && (
+                  <p className="text-red-500 text-sm">{errors[index].endYear}</p>
+                )}
               </div>
             </div>
 
@@ -172,10 +220,11 @@ export default function WorkExperience() {
           </div>
         ))}
 
+        {/* Add New Form */}
         <div className="text-center mt-6">
           <button
             className="flex justify-center items-center flex-row p-4 bg-green-500 hover:bg-green-600 rounded-md px-7 mx-auto"
-            onClick={addNewForm} // This now prevents the default form submission
+            onClick={addNewForm}
           >
             Add New
             <FontAwesomeIcon
@@ -186,6 +235,7 @@ export default function WorkExperience() {
           </button>
         </div>
 
+        {/* Navigation buttons */}
         <div className="flex justify-end gap-3 mt-10">
           <button
             type="button"

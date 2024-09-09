@@ -11,11 +11,11 @@ export default function Template() {
     { image: 'images/Templete3.jpg', resume: 'resume3' },
     { image: 'images/Templete4.jpg', resume: 'resume4' }
   ];
-
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Rename the function to avoid React hook naming confusion
+  // Handler for template selection
   const handleTemplateSelection = (image, resume) => {
     dispatch(selectTemplate({ template: image, resume }));
     navigate('/personalInformation');
@@ -25,6 +25,7 @@ export default function Template() {
     <div className="mx-2 my-6">
       <h1 className="flex justify-center text-4xl font-bold mb-4 ">Template</h1>
       <div className="flex gap-8">
+        {/* Mapping through templateArray to display TemplateCard components */}
         {templateArray.map((item, idx) => (
           <TemplateCard 
             key={idx} 

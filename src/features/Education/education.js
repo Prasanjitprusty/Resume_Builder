@@ -17,6 +17,8 @@ export default function EducationDetails() {
     },
   ]);
 
+  const [errors, setErrors] = useState([{}]); // To track form validation errors
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -25,10 +27,15 @@ export default function EducationDetails() {
     const updatedFormData = [...formData];
     updatedFormData[index][name] = value;
     setFormData(updatedFormData);
+
+    // Reset error for this field when user starts typing
+    const updatedErrors = [...errors];
+    updatedErrors[index][name] = "";
+    setErrors(updatedErrors);
   };
 
   const addNewForm = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     setFormData([
       ...formData,
       {
@@ -39,6 +46,7 @@ export default function EducationDetails() {
         endYear: "",
       },
     ]);
+    setErrors([...errors, {}]);
 
     const newParam = `Type${formData.length + 1}`;
     searchParams.set(newParam, newParam);
@@ -49,20 +57,37 @@ export default function EducationDetails() {
     const updatedFormData = formData.filter((_, i) => i !== index);
     setFormData(updatedFormData);
 
-    // Update search parameters
     searchParams.delete(`Type${index + 1}`);
-    // Re-index remaining search parameters
     updatedFormData.forEach((_, i) => {
       searchParams.set(`Type${i + 1}`, `Type${i + 1}`);
     });
     setSearchParams(searchParams);
   };
 
+  // Validate the form before submission
+  const validateForm = () => {
+    const newErrors = formData.map((form) => {
+      const error = {};
+      if (!form.type) error.type = "Educational type is required.";
+      if (!form.university) error.university = "University is required.";
+      if (!form.degree) error.degree = "Degree is required.";
+      if (!form.startYear) error.startYear = "Start year is required.";
+      if (!form.endYear) error.endYear = "End year is required.";
+      return error;
+    });
+
+    setErrors(newErrors);
+    return newErrors.every((error) => Object.keys(error).length === 0);
+  };
+
   const getFormData = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    dispatch(setEducationInformation(formData));
-    navigate("/keySkills");
+    if (validateForm()) {
+      dispatch(setEducationInformation(formData));
+      navigate("/keySkills");
+    } else {
+      console.log("Validation errors:", errors);
+    }
   };
 
   const handleBack = () => {
@@ -73,14 +98,11 @@ export default function EducationDetails() {
     <div className="bg-slate-500 rounded-sm m-24 p-8">
       <form onSubmit={getFormData}>
         <div className="text-center scale-125 mt-4 text-fuchsia-900">
-          <FontAwesomeIcon icon={faPenRuler} className="mr-2" /> Education
-          Details
+          <FontAwesomeIcon icon={faPenRuler} className="mr-2" /> Education Details
         </div>
-
         {formData.map((form, index) => (
           <div key={index} className="mt-8">
             <div className="flex gap-4 mt-4 flex-row">
-              {/* Type */}
               <div className="w-1/2">
                 <label
                   htmlFor={`type-${index}`}
@@ -97,11 +119,12 @@ export default function EducationDetails() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.type && (
+                  <p className="text-red-500">{errors[index].type}</p>
+                )}
               </div>
             </div>
-
             <div className="flex gap-4 mt-4 flex-row">
-              {/* University */}
               <div className="flex-1">
                 <label
                   htmlFor={`university-${index}`}
@@ -118,9 +141,10 @@ export default function EducationDetails() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.university && (
+                  <p className="text-red-500">{errors[index].university}</p>
+                )}
               </div>
-
-              {/* Degree Name */}
               <div className="flex-1">
                 <label
                   htmlFor={`degree-${index}`}
@@ -137,11 +161,12 @@ export default function EducationDetails() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.degree && (
+                  <p className="text-red-500">{errors[index].degree}</p>
+                )}
               </div>
             </div>
-
             <div className="flex gap-4 mt-4 flex-row">
-              {/* Start Year */}
               <div className="flex-1">
                 <label
                   htmlFor={`startYear-${index}`}
@@ -157,9 +182,10 @@ export default function EducationDetails() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.startYear && (
+                  <p className="text-red-500">{errors[index].startYear}</p>
+                )}
               </div>
-
-              {/* End Year */}
               <div className="flex-1">
                 <label
                   htmlFor={`endYear-${index}`}
@@ -175,10 +201,11 @@ export default function EducationDetails() {
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
+                {errors[index]?.endYear && (
+                  <p className="text-red-500">{errors[index].endYear}</p>
+                )}
               </div>
             </div>
-
-            {/* Delete Form Button */}
             <div className="mt-2 flex justify-end">
               <button
                 type="button"
@@ -190,11 +217,10 @@ export default function EducationDetails() {
             </div>
           </div>
         ))}
-
         <div className="text-center mt-6">
           <button
             className="flex justify-center items-center flex-row p-4 bg-green-500 hover:bg-green-600 rounded-md px-7 mx-auto"
-            onClick={addNewForm} // This now prevents the default form submission
+            onClick={addNewForm}
           >
             Add New
             <FontAwesomeIcon
@@ -204,7 +230,6 @@ export default function EducationDetails() {
             />
           </button>
         </div>
-
         <div className="flex justify-end gap-3 mt-10">
           <button
             type="button"
