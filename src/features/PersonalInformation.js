@@ -104,7 +104,7 @@ export default function PersonalInformation() {
     if (validate()) {
       console.log("Form Data:", formData);
       dispatch(setPersonalInformation(formData)); // This dispatches the entire formData object
-      navigate("/workExprience");
+      navigate("/workExperience");
     }
   };
 

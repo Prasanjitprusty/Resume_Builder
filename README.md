@@ -68,7 +68,7 @@ npm install
 # How to use the project
 npm start
 
-# gitgub link
+# github link
 `https://github.com/Prasanjitprusty/Resume_Builder.git`
 
 # Netlify Link

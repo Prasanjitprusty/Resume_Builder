@@ -22,7 +22,7 @@ export default function App() {
         <Route path='/workExperience' element={<WorkExperience />} />
         <Route path='/education' element={<EducationDetails />} />
         <Route path="/aboutUs" element={<AboutUs />} />
-        <Route path="/myResume" element={<MyResume />} /> {/* Update the component */}
+        <Route path="/myResume" element={<MyResume />} />
       </Routes>
     </Router>
   );

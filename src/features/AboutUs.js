@@ -26,7 +26,7 @@ export default function AboutUs() {
         </h1>
         <br></br>
       {/*  About Us paragraph */}
-      <p1 className="mt-15 text-xl justify-center">
+      <p className="mt-15 text-xl justify-center">
         we understand the importance of creating a professional and impactful
         resume. We believe that a well-crafted resume can make a significant
         difference in your job search, helping you stand out from the
@@ -39,7 +39,7 @@ export default function AboutUs() {
         making a career transition, our platform provides the tools and
         resources you need to create a compelling resume that highlights your
         skills, experience, and achievements.
-      </p1>
+      </p>
 
       <div className="flex space-x-4 justify-center mt-6">
         {icons.map((item, idx) => (
