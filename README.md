@@ -72,7 +72,7 @@ npm start
 `https://github.com/Prasanjitprusty/Resume_Builder.git`
 
 # Netlify Link
-`https://prasanjitresumebuilder.netlify.app`
+`https://prasanjitresume.netlify.app`
  
 # Add Dependencies 
 npm install react-dom   
