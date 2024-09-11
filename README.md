@@ -187,47 +187,38 @@ Copy code
 To set up and run the project locally, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/Prasanjitprusty/Resume_Builder.git
-   Navigate to the project directory:
-   ```
+   git clone `https://github.com/Prasanjitprusty/Resume_Builder.git`
+     
+2. Navigate to the project directory:
+   cd Resume_Builder
 
-bash
-Copy code
-cd Resume_Builder
-Install the dependencies:
+3. Install the dependencies:
+    npm install
 
-bash
-Copy code
-npm install
-Start the development server:
+4. Start the development server:
+    npm start
 
-bash
-Copy code
-npm start
-Available Scripts
-npm start - Runs the app in development mode.
-npm run build - Builds the app for production.
-Dependencies
-react-dom
-react-redux
-react-router-dom
-html2canvas
-@reduxjs/toolkit
-@fortawesome/free-solid-svg-icons
-@fortawesome/react-fontawesome
-jspdf
-Tailwind CSS Setup
-Install Tailwind CSS:
+## Available Scripts
+   npm start - Runs the app in development mode.
+   npm run build - Builds the app for production.
 
-bash
-Copy code
-npm install -D tailwindcss
-npx tailwindcss init
-Configure Tailwind in tailwind.config.js:
+## Dependencies
+    react-dom
+    react-redux
+    react-router-dom
+    html2canvas
+    @reduxjs/toolkit
+    @fortawesome/free-solid-svg-icons
+    @fortawesome/react-fontawesome
+    jspdf
 
-javascript
-Copy code
+## Tailwind CSS Setup
+1.  Tailwind CSS:
+     npm install -D tailwindcss
+     npx tailwindcss init
+
+2. Configure Tailwind in tailwind.config.js:
+
 module.exports = {
 content: ["./src/**/*.{html,js}"],
 theme: {
@@ -235,17 +226,25 @@ extend: {},
 },
 plugins: [],
 }
+
 3. Add Tailwind directives to input.css:
 
-css
-Copy code
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-Build
-To create a production build:
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+## Build
+   To create a production build:
+     npm run build
+
+## Live Demo
+   `https://prasanjitresume.netlify.app`     
 
 ## Contact
-
     For any queries or further information, contact me at:
-    Email: prasanjitprusty390@gmail.com
+  Email: `prasanjitprusty390@gmail.com`
+
+## License
+    This project is licensed under the MIT License.
+  This `README.md` is clean, detailed, and provides all necessary information about your project!
+
