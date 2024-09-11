@@ -8,9 +8,7 @@ export default function Resume2() {
   const workExperience = useSelector(
     (state) => state.userDetails.workExperience
   );
-
   const educationDetails = useSelector((state) => state.userDetails.education);
-
   const skills = useSelector((state) => state.userDetails.skills);
 
   console.log("Personal Information in Preview:", personalInformation);
@@ -19,11 +17,11 @@ export default function Resume2() {
   console.log("Skills in Preview:", skills);
 
   return (
-    <div className="flex bg-custom-color">
+    <div className="flex flex-col lg:flex-row bg-custom-color p-4">
       {/* Left Section: Personal Info and Key Skills */}
-      <div className="flex bg-gray-500 flex-col justify-start items-center m-4 p-4 h-1/2 bg-gray-300 rounded-lg">
+      <div className="flex flex-col bg-gray-500 rounded-lg p-4 m-4 lg:w-1/3 lg:h-auto">
         <div
-          className="flex justify-center items-center rounded-full bg-red-700"
+          className="flex justify-center  items-center rounded-full bg-red-700 mx-auto"
           style={{
             width: 180, // Outer circle width
             height: 180, // Outer circle height
@@ -34,12 +32,12 @@ export default function Resume2() {
             src={personalInformation.profilePhoto}
           />
         </div>
-        <label className="flex justify-center item-center w-full bg-red-700 mt-5 text-2xl font-extralight leading-loose tracking-widest text-white ">
+        <label className="flex justify-center item-center w-full bg-red-700 mt-5 text-2xl font-extralight leading-loose tracking-widest text-white">
           PERSONAL INFO
         </label>
 
         {/* Name */}
-        <div className="flex text-white  flex-col mt-5 items-start space-y-2">
+        <div className="flex text-white flex-col mt-5 items-start space-y-2">
           <div className="text-sm font-serif">
             <div className="flex">
               <span className="font-mono text-lg">Name: </span>
@@ -81,7 +79,7 @@ export default function Resume2() {
         </div>
 
         {/* Key Skills */}
-        <label className="flex justify-start bg-red-700 mt-20 px-16 text-2xl font-extralight leading-loose tracking-widest text-white mx-8 ">
+        <label className="flex justify-start bg-red-700 mt-5 px-4 text-xl font-extralight leading-loose tracking-widest text-white">
           Key Skills
         </label>
         <div className="mt-4 text-white">
@@ -104,52 +102,51 @@ export default function Resume2() {
       </div>
 
       {/* Right Section: Objective, Work Experience, and Education Details */}
-      <div className="flex-1 w-auto h-auto my-4 rounded-lg mr-5 ">
+      <div className="flex-1 rounded-lg mx-4 lg:mx-5 p-4">
         <div className="text-sm font-serif">
-          <div className="flex flex-col mt-5 mx-8">
-            <h1 className="ms-5 tracking-widest leading-loose font-serif text-white font-semibold text-4xl">
+          <div className="flex flex-col mt-5 mx-2 lg:mx-8">
+            <h1 className="tracking-widest leading-loose font-serif text-white font-semibold text-3xl lg:text-4xl">
               {personalInformation.firstName}
             </h1>
-            <h1 className="ms-5 tracking-widest leading-loose font-serif font-extralight text-white text-4xl">
+            <h1 className="tracking-widest leading-loose font-serif font-extralight text-white text-3xl lg:text-4xl">
               {personalInformation.lastName}
             </h1>
-            <h1 className="ms-5 tracking-tighter leading-loose font-mono text-lg text-white">
+            <h1 className="tracking-tighter leading-loose font-mono text-lg text-white">
               {personalInformation.position}
             </h1>
           </div>
         </div>
 
         {/* Objective */}
-        <label className="flex bg-red-700 justify-center mt-5 text-2xl font-extralight leading-loose tracking-widest bg-black text-white mx-8 items-center">
+        <label className="flex bg-red-700 justify-center mt-5 text-xl font-extralight leading-loose tracking-widest text-white">
           Objective
         </label>
-        <div className="border rounded-lg mx-11 p-6 mt-4 text-white">
+        <div className="border rounded-lg p-4 mt-4 text-white">
           {personalInformation.objective}
         </div>
 
         {/* Work Experience */}
-        <label className="flex bg-red-700 block justify-center mt-5 text-2xl font-extralight leading-loose tracking-widest bg-black text-white mx-8 items-center">
+        <label className="flex bg-red-700 justify-center mt-5 text-xl font-extralight leading-loose tracking-widest text-white">
           Work Experience
         </label>
-
-        <div className="border rounded-lg mx-11 p-6 mt-4 text-white">
+        <div className="border rounded-lg p-4 mt-4 text-white">
           {workExperience.map((items, idx) => (
             <div key={idx} className="mt-4">
-              <h3 className="font-bold text-2xl tracking-widest underline">{`Company-${
+              <h3 className="font-bold text-xl tracking-widest underline">{`Company-${
                 idx + 1
               }`}</h3>
 
               <div className="text-base tracking-widest font-semibold mt-2">
                 {`Job Title-${idx + 1}:`}
-                <span className="font-mono tracking-widest  font-extralight text-sm">
+                <span className="font-mono tracking-widest font-extralight text-sm">
                   {" "}
                   {items.jobTitle}
                 </span>
               </div>
 
-              <div className="text-base  tracking-widest font-semibold mt-2">
+              <div className="text-base tracking-widest font-semibold mt-2">
                 {`OrganizationName-${idx + 1}:`}
-                <span className="font-mono tracking-widest  font-extralight text-sm">
+                <span className="font-mono tracking-widest font-extralight text-sm">
                   {" "}
                   {items.organizationName}
                 </span>
@@ -166,14 +163,13 @@ export default function Resume2() {
         </div>
 
         {/* Education Details */}
-        <label className="flex block justify-center mt-5 text-2xl bg-red-700 font-extralight leading-loose tracking-widest bg-black text-white mx-8 items-center">
+        <label className="flex bg-red-700 justify-center mt-5 text-xl font-extralight leading-loose tracking-widest text-white">
           Education Details
         </label>
-
-        <div className="border rounded-lg text-white mx-11 p-6 mt-4">
+        <div className="border rounded-lg p-4 mt-4 text-white">
           {educationDetails.map((items, idx) => (
             <div key={idx} className="mt-4">
-              <h3 className="font-bold text-2xl tracking-widest underline">{`Educational Details-${
+              <h3 className="font-bold text-xl tracking-widest underline">{`Educational Details-${
                 idx + 1
               }`}</h3>
 
@@ -200,7 +196,6 @@ export default function Resume2() {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

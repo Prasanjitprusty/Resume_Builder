@@ -6,6 +6,7 @@ const initialState = {
   workExperience: {},
   education: {},
   skills: {},
+  
 };
 
 const userDetailsSlice = createSlice({

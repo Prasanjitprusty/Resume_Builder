@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; // Import useDispatch
 import Resume1 from "./Resumes/resume1";
 import Resume2 from "./Resumes/resume2";
 import Resume3 from "./Resumes/resume3";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { selectTemplate } from "./userDetails/userDetailsSlice"; // Import selectTemplate action
 
 export default function Preview() {
   const [pdfFileName, setPdfFileName] = useState("resume-preview"); // Default file name
   const userDetails = useSelector((state) => state.userDetails);
+  const dispatch = useDispatch(); // Initialize dispatch
+  
   console.log("User Details State:", userDetails);
 
   const { selectedResume } = userDetails;
@@ -40,11 +43,17 @@ export default function Preview() {
     });
   };
 
+  const handleSaveResume = () => {
+    dispatch(selectTemplate({ resume: selectedResume })); // Save resume to Redux
+    alert('Resume has been saved to My Resume.');
+  };
+
   return (
-    <div className="p-4">
-      <h1 className="flex justify-center text-4xl font-bold mb-4">Preview</h1>
-      <div className="mb-4">
-        <div className="flex justify-end mb-4">
+    <div className="p-4 sm:p-6 md:p-8 lg:p-10">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6">Preview</h1>
+      
+      <div className="mb-6">
+        <div className="flex flex-col sm:flex-row justify-end gap-2 mb-4">
           <input
             id="pdf"
             name="pdf"
@@ -52,21 +61,31 @@ export default function Preview() {
             placeholder="Enter File Name"
             value={pdfFileName}
             onChange={(e) => setPdfFileName(e.target.value)}
-            className="block w-1/2 p-2 border font-sans text-center mb-6 rounded-md ml-2"
+            className="block w-full sm:w-1/2 p-2 border border-gray-300 rounded-md text-center mb-2 sm:mb-0"
           />
-          <label
-            htmlFor="pdf"
-            className="block text-sm m-2 font-sans underline hover:text-green-400 text-blue-800 mb-2 cursor-pointer"
+          <button
             onClick={handleDownloadPdf}
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition"
           >
-            (Download as Pdf)
-          </label>
+            Download as PDF
+          </button>
         </div>
 
-        <div id="resume-content">
+        <div id="resume-content" className="overflow-x-auto">
           {renderResume()}
         </div>
       </div>
+      
+      {/* Container for Save button */}
+      <div className="flex justify-end mt-4">
+        <button
+          onClick={handleSaveResume}  // Save button functionality
+          className="bg-orange-400 text-white px-14 py-4 rounded-xl border-2 border-orange-700"
+        >
+          Save
+        </button>
+      </div>
+
     </div>
   );
 }

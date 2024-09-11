@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
 import PersonalInformation from './features/PersonalInformation';
 import KeySkills from './features/KeySkills';
 import Preview from './features/preview';

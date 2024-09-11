@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faBriefcase, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setWorkExperienceInformation } from "../userDetails/userDetailsSlice";
@@ -16,7 +15,6 @@ export default function WorkExperience() {
       endYear: "",
     },
   ]);
-
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,7 +25,6 @@ export default function WorkExperience() {
     updatedFormData[index][name] = value;
     setFormData(updatedFormData);
 
-    // Clear error on input change
     const updatedErrors = [...errors];
     updatedErrors[index] = { ...updatedErrors[index], [name]: "" };
     setErrors(updatedErrors);
@@ -66,7 +63,6 @@ export default function WorkExperience() {
     searchParams.set(newParam, newParam);
     setSearchParams(searchParams);
 
-    // Add an empty error object for the new form
     setErrors([...errors, {}]);
   };
 
@@ -80,7 +76,6 @@ export default function WorkExperience() {
     });
     setSearchParams(searchParams);
 
-    // Remove corresponding error entry
     const updatedErrors = errors.filter((_, i) => i !== index);
     setErrors(updatedErrors);
   };
@@ -99,21 +94,20 @@ export default function WorkExperience() {
   };
 
   return (
-    <div className="bg-slate-500 rounded-sm m-24 p-8">
+    <div className="bg-slate-500 rounded-md mx-auto p-4 md:p-8 max-w-4xl w-full">
       <form onSubmit={getFormData}>
-        <div className="text-center scale-125 mt-4 text-fuchsia-900">
-          <FontAwesomeIcon icon={faBriefcase} className="mr-2" /> Work
-          Experience
+        <div className="text-center text-2xl md:text-3xl text-fuchsia-900 font-semibold mb-4">
+          <FontAwesomeIcon icon={faBriefcase} className="mr-2" /> Work Experience
         </div>
 
         {formData.map((form, index) => (
-          <div key={index} className="mt-8">
-            <label className="text-2xl font-sans underline text-orange-500">
-              {`Company -${index + 1}`}
+          <div key={index} className="mt-6">
+            <label className="text-xl md:text-2xl font-sans underline text-orange-500">
+              {`Company - ${index + 1}`}
             </label>
-            <div className="flex gap-4 mt-4 flex-row">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {/* Job Title */}
-              <div className="flex-1">
+              <div>
                 <label
                   htmlFor={`jobTitle-${index}`}
                   className="text-lg block mb-2 text-blue-300"
@@ -130,14 +124,12 @@ export default function WorkExperience() {
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.jobTitle && (
-                  <p className="text-red-500 text-sm">
-                    {errors[index].jobTitle}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors[index].jobTitle}</p>
                 )}
               </div>
 
               {/* Organization Name */}
-              <div className="flex-1">
+              <div>
                 <label
                   htmlFor={`organizationName-${index}`}
                   className="text-lg block mb-2 text-blue-300"
@@ -154,16 +146,14 @@ export default function WorkExperience() {
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.organizationName && (
-                  <p className="text-red-500 text-sm">
-                    {errors[index].organizationName}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors[index].organizationName}</p>
                 )}
               </div>
             </div>
 
-            <div className="flex gap-4 mt-4 flex-row">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {/* Start Year */}
-              <div className="flex-1">
+              <div>
                 <label
                   htmlFor={`startYear-${index}`}
                   className="text-lg block mb-2 text-blue-300"
@@ -179,14 +169,12 @@ export default function WorkExperience() {
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.startYear && (
-                  <p className="text-red-500 text-sm">
-                    {errors[index].startYear}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors[index].startYear}</p>
                 )}
               </div>
 
               {/* End Year */}
-              <div className="flex-1">
+              <div>
                 <label
                   htmlFor={`endYear-${index}`}
                   className="text-lg block mb-2 text-blue-300"
@@ -208,7 +196,7 @@ export default function WorkExperience() {
             </div>
 
             {/* Delete Form Button */}
-            <div className="mt-2 flex justify-end">
+            <div className="mt-4 flex justify-end">
               <button
                 type="button"
                 className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
@@ -223,7 +211,7 @@ export default function WorkExperience() {
         {/* Add New Form */}
         <div className="text-center mt-6">
           <button
-            className="flex justify-center items-center flex-row p-4 bg-green-500 hover:bg-green-600 rounded-md px-7 mx-auto"
+            className="flex items-center mx-auto justify-center p-4 bg-green-500 hover:bg-green-600 rounded-md"
             onClick={addNewForm}
           >
             Add New
@@ -251,6 +239,7 @@ export default function WorkExperience() {
             Next
           </button>
         </div>
+
       </form>
     </div>
   );

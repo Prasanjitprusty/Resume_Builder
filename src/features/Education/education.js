@@ -95,20 +95,24 @@ export default function EducationDetails() {
   };
 
   return (
-    <div className="bg-slate-500 rounded-sm m-24 p-8">
+    <div className="bg-slate-500 rounded-md mx-auto p-4 md:p-8 max-w-5xl w-full">
       <form onSubmit={getFormData}>
-        <div className="text-center scale-125 mt-4 text-fuchsia-900">
+        <div className="text-center text-2xl md:text-3xl text-fuchsia-900 font-semibold mb-6">
           <FontAwesomeIcon icon={faPenRuler} className="mr-2" /> Education Details
         </div>
         {formData.map((form, index) => (
-          <div key={index} className="mt-8">
-            <div className="flex gap-4 mt-4 flex-row">
-              <div className="w-1/2">
+          <div key={index} className="mb-6">
+            <div className="text-lg font-semibold mb-2 text-orange-500">
+              {`Education Entry ${index + 1}`}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Type */}
+              <div>
                 <label
                   htmlFor={`type-${index}`}
                   className="text-lg block mb-2 text-blue-300"
                 >
-                  {`Type-${index + 1}`}
+                  Educational Type
                 </label>
                 <input
                   id={`type-${index}`}
@@ -120,32 +124,34 @@ export default function EducationDetails() {
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.type && (
-                  <p className="text-red-500">{errors[index].type}</p>
+                  <p className="text-red-500 text-sm">{errors[index].type}</p>
                 )}
               </div>
-            </div>
-            <div className="flex gap-4 mt-4 flex-row">
-              <div className="flex-1">
+
+              {/* University */}
+              <div>
                 <label
                   htmlFor={`university-${index}`}
                   className="text-lg block mb-2 text-blue-300"
                 >
-                  {`University-${index + 1}`}
+                  University
                 </label>
                 <input
                   id={`university-${index}`}
                   name="university"
                   type="text"
-                  placeholder="Select University"
+                  placeholder="Enter University"
                   value={form.university}
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.university && (
-                  <p className="text-red-500">{errors[index].university}</p>
+                  <p className="text-red-500 text-sm">{errors[index].university}</p>
                 )}
               </div>
-              <div className="flex-1">
+
+              {/* Degree */}
+              <div>
                 <label
                   htmlFor={`degree-${index}`}
                   className="text-lg block mb-2 text-blue-300"
@@ -156,18 +162,18 @@ export default function EducationDetails() {
                   id={`degree-${index}`}
                   name="degree"
                   type="text"
-                  placeholder="Select Course"
+                  placeholder="Enter Degree"
                   value={form.degree}
                   onChange={(e) => handleInputChange(index, e)}
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.degree && (
-                  <p className="text-red-500">{errors[index].degree}</p>
+                  <p className="text-red-500 text-sm">{errors[index].degree}</p>
                 )}
               </div>
-            </div>
-            <div className="flex gap-4 mt-4 flex-row">
-              <div className="flex-1">
+
+              {/* Start Year */}
+              <div>
                 <label
                   htmlFor={`startYear-${index}`}
                   className="text-lg block mb-2 text-blue-300"
@@ -183,10 +189,12 @@ export default function EducationDetails() {
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.startYear && (
-                  <p className="text-red-500">{errors[index].startYear}</p>
+                  <p className="text-red-500 text-sm">{errors[index].startYear}</p>
                 )}
               </div>
-              <div className="flex-1">
+
+              {/* End Year */}
+              <div>
                 <label
                   htmlFor={`endYear-${index}`}
                   className="text-lg block mb-2 text-blue-300"
@@ -202,11 +210,11 @@ export default function EducationDetails() {
                   className="block w-full p-2 border rounded-md"
                 />
                 {errors[index]?.endYear && (
-                  <p className="text-red-500">{errors[index].endYear}</p>
+                  <p className="text-red-500 text-sm">{errors[index].endYear}</p>
                 )}
               </div>
             </div>
-            <div className="mt-2 flex justify-end">
+            <div className="flex justify-end mt-4">
               <button
                 type="button"
                 className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700"
@@ -219,13 +227,13 @@ export default function EducationDetails() {
         ))}
         <div className="text-center mt-6">
           <button
-            className="flex justify-center items-center flex-row p-4 bg-green-500 hover:bg-green-600 rounded-md px-7 mx-auto"
+            className="flex items-center mx-auto justify-center p-4 bg-green-500 hover:bg-green-600 rounded-md"
             onClick={addNewForm}
           >
             Add New
             <FontAwesomeIcon
               aria-label="Add Education"
-              className="ml-2 cursor-pointer"
+              className="ml-2"
               icon={faCirclePlus}
             />
           </button>
@@ -245,6 +253,7 @@ export default function EducationDetails() {
             Next
           </button>
         </div>
+        
       </form>
     </div>
   );

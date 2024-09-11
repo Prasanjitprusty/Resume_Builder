@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; 
 import TemplateCard from "./TemplateCard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ export default function Template() {
     { image: 'images/Templete3.jpg', resume: 'resume3' },
     { image: 'images/Templete4.jpg', resume: 'resume4' }
   ];
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,8 +23,8 @@ export default function Template() {
 
   return (
     <div className="mx-2 my-6">
-      <h1 className="flex justify-center text-4xl font-bold mb-4 ">Template</h1>
-      <div className="flex gap-8">
+      <h1 className="flex justify-center text-4xl font-bold mb-4">Template</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {/* Mapping through templateArray to display TemplateCard components */}
         {templateArray.map((item, idx) => (
           <TemplateCard 
